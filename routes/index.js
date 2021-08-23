@@ -2,6 +2,7 @@ import express from "express";
 import clientRouter from "./client/index.js";
 import cmsRouter from "./cms/index.js";
 import testingRouter from "./testing.js";
+import {measureMemory} from "#middleware";
 const Router = express.Router();
 
 Router.get("/", (req, res) => {

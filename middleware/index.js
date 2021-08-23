@@ -1,7 +1,8 @@
 import * as testing from "./testing.js";
+export * from "./testing.js";
 
 const Middleware = [
-  ...Object.values(testing)
+  testing.measureMemory,
 ];
 
 export default Middleware;

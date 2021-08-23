@@ -10,9 +10,10 @@ import middleware from "#middleware";
 const app = express();
 
 app.use(
+  cors(),
   // express_session(config.session),
   body_parser.json(),
- body_parser.text(),
+  body_parser.text(),
   body_parser.urlencoded({extended: true}),
   ...middleware,
   routes,
