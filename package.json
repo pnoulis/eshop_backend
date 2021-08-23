@@ -12,9 +12,10 @@
     "#handlers": "./handlers/index.js",
     "#routes": "./routes/index.js",
     "#config": "./config/config.js",
-    "#input": "./lib/input/input.js",
+    "#input": "./lib/input/index.js",
     "#middleware": "./middleware/index.js",
     "#lib/*": "./lib/*",
+    "#misc/*": "./lib/misc/*",
     "#models": "./models/index.js"
   },
   "type": "module",

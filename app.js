@@ -8,6 +8,7 @@ import routes from "#routes";
 import middleware from "#middleware";
 
 const app = express();
+import validateInput from "#input";
 
 app.use(
   cors(),
