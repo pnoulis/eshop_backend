@@ -6,9 +6,9 @@ import cors from "cors";
 import {handleError} from "#handlers";
 import routes from "#routes";
 import middleware from "#middleware";
+import startDatabases from "#misc/start.js";
 
 const app = express();
-import validateInput from "#input";
 
 app.use(
   cors(),
@@ -23,5 +23,5 @@ app.use(
 
 const
 initMessage = `Express started in ${config.env} mode` +
-  `at ${config.domain}; press Ctrl-C to terminate`,
+  ` at ${config.serverDomain}; press Ctrl-C to terminate`,
 server = app.listen(config.port, () => console.log(initMessage));
