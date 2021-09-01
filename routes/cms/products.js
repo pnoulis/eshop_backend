@@ -8,13 +8,23 @@ import MyPath from "#misc/paths.js";
 const
 IMG_FIELD = "img",
 upload = multer({storage: multer.memoryStorage()}),
-Router = express.Router();
+Router = express.Router(),
+parseJSON = (req, res, next) => {
+  try {
+    JSON.parse(req.body);
+    req.body = JSON.parse(req.body);
+    return next();
+  } catch (err) {
+    return next();
+  }
+};
 
 
 // create product
 Router.post(
   "/api/product",
   upload.single(IMG_FIELD),
+  parseJSON,
   handleImageUpload,
   PRODUCT_HANDLERS.create,
   PRODUCT_HANDLERS.read,
@@ -30,6 +40,7 @@ Router.get(
 Router.put(
   "/api/product",
   upload.single(IMG_FIELD),
+  parseJSON,
   handleImageUpload,
   deleteImages,
   PRODUCT_HANDLERS.update,
@@ -39,6 +50,7 @@ Router.put(
 // delete product
 Router.delete(
   "/api/product",
+  parseJSON,
   PRODUCT_HANDLERS.delete,
   deleteImages,
   PRODUCT_HANDLERS.read,

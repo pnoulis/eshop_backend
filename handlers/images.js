@@ -100,19 +100,13 @@ export function handleImageUpload(req, res, next) {
 
 export function deleteImages(req, res, next) {
   if (!req.body.oldImg) return next();
-  try {
-    req.body.oldImg = JSON.parse(req.body.oldImg).tiny.path;
-  } catch (err) {
-    err.trace = ".middleware 'deleteImages', middleware assumes 'path' property in body of request within 'oldImg' property";
-    log.error({ok: false, err});
-    return next(err);
-  }
+  req.body.oldImg = req.body.oldImg.tiny.path;
   const path = new MyPath(req.body.oldImg)
         .removeDomain()
         .removeFile()
         .addPublic();
 
-  path.removeDir("teuhsaothusoaetnhus/oauoetnuhoesuth", (err) => {
+  path.removeDir("", (err) => {
     if (err) {
       err.trace = ".router delete or put :'/api/product'. removeDir";
       log.error({ok: false, err});

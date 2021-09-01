@@ -43,12 +43,15 @@ export const PRODUCT_HANDLERS = {
     });
   },
   delete(req, res, next) {
-    Products.delete((err, deleted) => {
+    Products.delete(req.body.id, (err, deleted) => {
       if (err) {
         err.trace += ".router delete:'/api/product";
         log.error(err);
         return next();
       }
+
+      req.body.oldImg = req.body.img;
+      log.info({ok: "product deleted", deleted: {pid: deleted.pid, id: deleted._id}});
       return next();
     });
   },
