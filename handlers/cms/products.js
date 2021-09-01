@@ -38,7 +38,7 @@ export const PRODUCT_HANDLERS = {
         res.json({ok: false});
       }
 
-      log.info({ok: "product updated", updated: {pid: updated.pid, id: updated._id}});
+      log.info({ok: "product updated", updated: {pid: req.body.pid, id: req.body._id}});
       return next();
     });
   },
