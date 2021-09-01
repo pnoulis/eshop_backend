@@ -1,3 +1,6 @@
+export function showReq(req, res, next) {
+  return next();
+}
 export function measureMemory(req, res, next) {
   const used = process.memoryUsage();
   for (let key in used) {

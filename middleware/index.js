@@ -1,8 +1,10 @@
 import * as testing from "./testing.js";
+export * from "./validateInput.js";
 export * from "./testing.js";
+export * from "./errors.js";
 
 const Middleware = [
-  testing.measureMemory,
+  ...Object.values(testing),
 ];
 
 export default Middleware;

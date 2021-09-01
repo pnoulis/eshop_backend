@@ -1,3 +1,5 @@
+import {SESSION_TIMEOUT} from "#session";
+import {expireIn} from "#misc/time.js";
 import credentials from "./.credentials.dev.js";
 
 const
@@ -5,6 +7,9 @@ env = process.env.NODE_ENV || "development",
 port = process.env.PORT || 4006,
 serverDomain = `http://localhost:${port}`,
 clientDomain = "http://localhost:3000",
+productsImgDir = "/public/products/",
+publicDir = "/public",
+serverRoot = "nnbackend",
 cors = {
   // Access-Control-Allow-Origin
   origin: `${clientDomain}`,
@@ -12,17 +17,17 @@ cors = {
   credentials: true,
 },
 
-expressSession = {
+session = {
   resave: false,
   rolling: false,
   // express-session creates a session for each request-response cycle. If the server populates the session
   // before servicing the request, then the session  will be saved to the store. the _saveUninitialized_
   // option if set to true will save the session to the store even if its not populated.
-  saveUninitialized: true,
+  saveUninitialized: false,
   secret: credentials.secretKey,
   secure: true,
   cookie: {
-    // maxAge: expireIn({expireIn: "30s", startFrom: "now"}),
+    maxAge: expireIn(SESSION_TIMEOUT),
     secure: false,
     sameSite: "lax", // "none" || "lax" || "strict"
     httpOnly: true,
@@ -33,9 +38,12 @@ expressSession = {
 export default {
   env,
   port,
+  session,
+  serverRoot,
   serverDomain,
   clientDomain,
+  productsImgDir,
+  publicDir,
   credentials,
-  expressSession,
   cors,
 };

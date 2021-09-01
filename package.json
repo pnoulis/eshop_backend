@@ -7,14 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "imports": {
-    "#client-handlers": "./handlers/client/index.js",
-    "#cms-handlers": "./handlers/cms/index.js",
     "#handlers": "./handlers/index.js",
     "#routes": "./routes/index.js",
     "#config": "./config/config.js",
     "#input": "./lib/input/index.js",
     "#middleware": "./middleware/index.js",
     "#databases": "./lib/databases/index.js",
+    "#session": "./lib/session/index.js",
     "#log": "./lib/log/index.js",
     "#lib/*": "./lib/*",
     "#misc/*": "./lib/misc/*",
