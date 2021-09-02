@@ -55,9 +55,18 @@ Router.post("/api/take-stock/:pid", (req, res) => {
     amount: parseInt(req.body.amount),
     pid: req.params.pid,
   };
-  Stock.take(request, (err, taken) => {
-    return err ? res.json({ok: false}) : res.json({ok: true, payload: taken});
+  Stock.requestStock(request, (err, serviced, reason) => {
+    if (err || !serviced) return res.json({ok: false, payload: {request, serviced, reason}});
+    res.json({ok: true, payload: request});
   });
+});
+
+Router.delete("/api/return-stock/:pid", (req, res) => {
+  console.log(`return stock ${req.params.pid}`);
+  console.log(req.body);
+  const request = { amount: parseInt(req.body.amount), pid: req.params.pid};
+  Stock.returnStock(request);
+  res.json({ok: true, payload: request});
 });
 export default Router;
 
