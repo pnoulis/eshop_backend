@@ -1,4 +1,5 @@
 import express from "express";
+import {Stock} from "#stock-management";
 import log from "#log";
 const Router = express.Router();
 
@@ -32,5 +33,31 @@ Router.get("/api/regenerate", (req, res) => {
   });
 });
 
+Router.get("/api/stock/:pid", (req, res) => {
+  console.log(`get stock: ${req.params.pid}`);
+  Stock.get(req.params.pid, (err, stock) => {
+    if (err) return res.json({ok: false});
+    res.json({ok: true, payload: stock});
+  });
+});
+
+Router.get("/api/stock-available/:pid", (req, res) => {
+  console.log(`get stock availability ${req.params.pid}`);
+  Stock.isStockAvailable(req.params.pid, (err, is) => {
+    return err ? res.json({ok: false}) : res.json({ok: true, payload: {is}});
+  });
+});
+
+Router.post("/api/take-stock/:pid", (req, res) => {
+  console.log(`take stock ${req.params.pid}`);
+  console.log(req.body);
+  const request = {
+    amount: parseInt(req.body.amount),
+    pid: req.params.pid,
+  };
+  Stock.take(request, (err, taken) => {
+    return err ? res.json({ok: false}) : res.json({ok: true, payload: taken});
+  });
+});
 export default Router;
 

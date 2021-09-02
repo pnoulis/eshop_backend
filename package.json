@@ -14,6 +14,7 @@
     "#middleware": "./middleware/index.js",
     "#databases": "./lib/databases/index.js",
     "#session": "./lib/session/index.js",
+    "#stock-management": "./lib/stock-management/index.js",
     "#log": "./lib/log/index.js",
     "#lib/*": "./lib/*",
     "#misc/*": "./lib/misc/*",
