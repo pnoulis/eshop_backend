@@ -55,6 +55,7 @@ export const PRODUCT_HANDLERS = {
 
       req.body.oldImg = req.body.img;
       log.info({ok: "product deleted", deleted: {pid: deleted.pid, id: deleted._id}});
+      Stock.removeRedisStock(deleted.pid);
       return next();
     });
   },

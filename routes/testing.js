@@ -80,5 +80,14 @@ Router.get("/api/test-timeout", (req, res) => {
     return res.json({ok: true, payload: timeout});
   });
 });
+
+Router.delete("/api/delete-stock-record/:pid", (req, res) => {
+  console.log("delete-stock-record route");
+  console.log(req.params.pid);
+
+  Stock.removeRedisStock(req.params.pid, (err, removed) => {
+    return err ? res.json({ok: false}) : res.json({ok: true, payload: removed});
+  });
+});
 export default Router;
 
