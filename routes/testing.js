@@ -68,5 +68,17 @@ Router.delete("/api/return-stock/:pid", (req, res) => {
   Stock.returnStock(request);
   res.json({ok: true, payload: request});
 });
+
+Router.get("/api/test-timeout", (req, res) => {
+  console.log("test timeout route");
+  Stock.timeout((err, timeout) => {
+    if (err) {
+      console.log(err);
+      res.json({ok: false});
+    }
+
+    return res.json({ok: true, payload: timeout});
+  });
+});
 export default Router;
 

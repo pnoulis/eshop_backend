@@ -1,4 +1,5 @@
 import Products from "#lib/products.js";
+import {Stock} from "#stock-management";
 import log from "#log";
 
 
@@ -12,6 +13,7 @@ export const PRODUCT_HANDLERS = {
       }
 
       log.info({ok: "product created", newProduct: {_id: created._id, pid: created.pid}});
+      Stock.createRedisStock(created);
       return next();
     });
   },
@@ -39,6 +41,7 @@ export const PRODUCT_HANDLERS = {
       }
 
       log.info({ok: "product updated", updated: {pid: req.body.pid, id: req.body._id}});
+      Stock.createRedisStock(req.body);
       return next();
     });
   },
