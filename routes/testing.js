@@ -1,11 +1,11 @@
 import express from "express";
-import {Stock} from "#stock-management";
+import {Stock, ShoppingCart} from "#stock-management";
 import log from "#log";
 const Router = express.Router();
 
 
 import {validateInput} from "#middleware";
-import {AUTH_HANDLERS} from "#handlers";
+import {AUTH_HANDLERS, CART_HANDLERS} from "#handlers";
 
 
 Router.get("/api", (req, res, next) => {
@@ -46,27 +46,6 @@ Router.get("/api/stock-available/:pid", (req, res) => {
   Stock.isStockAvailable(req.params.pid, (err, is) => {
     return err ? res.json({ok: false}) : res.json({ok: true, payload: {is}});
   });
-});
-
-Router.post("/api/take-stock/:pid", (req, res) => {
-  console.log(`take stock ${req.params.pid}`);
-  console.log(req.body);
-  const request = {
-    amount: parseInt(req.body.amount),
-    pid: req.params.pid,
-  };
-  Stock.requestStock(request, (err, serviced, reason) => {
-    if (err || !serviced) return res.json({ok: false, payload: {request, serviced, reason}});
-    res.json({ok: true, payload: request});
-  });
-});
-
-Router.delete("/api/return-stock/:pid", (req, res) => {
-  console.log(`return stock ${req.params.pid}`);
-  console.log(req.body);
-  const request = { amount: parseInt(req.body.amount), pid: req.params.pid};
-  Stock.returnStock(request);
-  res.json({ok: true, payload: request});
 });
 
 Router.get("/api/test-timeout", (req, res) => {

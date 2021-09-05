@@ -1,5 +1,4 @@
 import {SESSION_TIMEOUT} from "#session";
-import {expireIn} from "#misc/time.js";
 import credentials from "./.credentials.dev.js";
 
 const
@@ -27,12 +26,12 @@ session = {
   secret: credentials.secretKey,
   secure: true,
   cookie: {
-    maxAge: expireIn(SESSION_TIMEOUT),
+    maxAge: SESSION_TIMEOUT,
     secure: false,
     sameSite: "lax", // "none" || "lax" || "strict"
     httpOnly: true,
     path: "/api",
-  },
+  }
 };
 
 export default {
