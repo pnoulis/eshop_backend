@@ -44,7 +44,7 @@ Router.get("/api/stock/:pid", (req, res) => {
 Router.get("/api/stock-available/:pid", (req, res) => {
   console.log(`get stock availability ${req.params.pid}`);
   Stock.isStockAvailable(req.params.pid, (err, is) => {
-    return err ? res.json({ok: false}) : res.json({ok: true, payload: {is}});
+
   });
 });
 

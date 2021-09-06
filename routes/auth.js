@@ -5,6 +5,14 @@ import {AUTH_HANDLERS} from "#handlers";
 
 const Router = express.Router();
 
+// register
+Router.post(
+  "/api/register",
+  validateInput,
+  AUTH_HANDLERS.register,
+  AUTH_HANDLERS.local,
+  AUTH_HANDLERS.login,
+);
 
 // local login
 Router.post(

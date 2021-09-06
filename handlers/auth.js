@@ -1,5 +1,6 @@
 import log from "#log";
 import Session from "#session";
+import User from "#lib/user.js";
 import passport from "#lib/auth/passport.js";
 
 export
@@ -76,6 +77,40 @@ AUTH_HANDLERS = {
     } catch (err) {
       return next(err);
     }
+  },
+
+  register(req, res, next) {
+    const user = Object.assign({}, req.body);
+    User.isAccountDuplicate(user.email, (err, is) => {
+      if (err) {
+        log.error({what: "failed to verify duplicate account in register proccess", err});
+        return next(err);
+      }
+
+      if (is) return res.json({ok: false, payload: {
+        flashMessage: "FRegisterDuplicate"
+      }});
+
+      User.hashPassword(user.password, (err, hashed) => {
+        if (err) {
+          log.error({what: "failed to hash password in register proccess", err});
+          return next(err);
+        }
+
+        user.loginMethod = "local";
+        user.password = hashed;
+
+        User.createUser(user, (err, created) => {
+          if (err) {
+            log.error({what: "failed to create user in register proccess", err});
+            return next(err);
+          }
+
+          return next();
+        });
+
+      });
+    });
   },
 };
 
