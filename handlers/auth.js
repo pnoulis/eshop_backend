@@ -106,6 +106,8 @@ AUTH_HANDLERS = {
             return next(err);
           }
 
+          log.info({what: "new user registered", user: user.email});
+
           return next();
         });
 

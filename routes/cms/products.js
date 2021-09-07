@@ -1,9 +1,6 @@
 import express from "express";
 import multer from "multer";
 import {handleImageUpload, deleteImages, PRODUCT_HANDLERS} from "#handlers";
-import {genPid} from "#lib/products.js";
-import MyPath from "#misc/paths.js";
-
 
 const
 IMG_FIELD = "img",
