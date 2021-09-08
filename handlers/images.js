@@ -99,8 +99,8 @@ export function handleImageUpload(req, res, next) {
 }
 
 export function deleteImages(req, res, next) {
+  console.log(req.body);
   if (!req.body.oldImg) return next();
-  req.body.oldImg = req.body.oldImg.tiny.path;
   const path = new MyPath(req.body.oldImg)
         .removeDomain()
         .removeFile()

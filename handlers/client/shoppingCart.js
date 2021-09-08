@@ -44,13 +44,17 @@ export const CART_HANDLERS = {
         log.error({ok: false, what: "decoding cart", err});
       }
       req.body.cart = err ? {} : cart;
+      Object.entries(req.body.cart).forEach(([k, val]) => {
+        console.log(k);
+        console.log(val);
+      })
       return next();
     });
   },
   encodeCart(req, res, next) {
     encodeCart(req.body.cart, (err, token) => {
       if (err) return next(err);
-      return res.json({ok: true, payload: {token, amount: req.body.request.amount}});
+      return res.json({ok: true, payload: {token, pid: req.body.request.pid}});
     });
   },
 };

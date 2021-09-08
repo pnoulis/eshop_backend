@@ -6,6 +6,10 @@ const Router = express.Router();
 
 Router.post(
   "/api/cart-add",
+  (req, res, next) => {
+    // is there a session? if no create one
+
+  },
   CART_HANDLERS.decodeCart,
   CART_HANDLERS.add,
   CART_HANDLERS.encodeCart,

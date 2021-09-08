@@ -33,6 +33,9 @@ Router.get("/api/regenerate", (req, res) => {
   });
 });
 
+Router.get("/api/sessions", (req, res) => {
+
+});
 Router.get("/api/stock/:pid", (req, res) => {
   console.log(`get stock: ${req.params.pid}`);
   Stock.get(req.params.pid, (err, stock) => {
@@ -48,25 +51,5 @@ Router.get("/api/stock-available/:pid", (req, res) => {
   });
 });
 
-Router.get("/api/test-timeout", (req, res) => {
-  console.log("test timeout route");
-  Stock.timeout((err, timeout) => {
-    if (err) {
-      console.log(err);
-      res.json({ok: false});
-    }
-
-    return res.json({ok: true, payload: timeout});
-  });
-});
-
-Router.delete("/api/delete-stock-record/:pid", (req, res) => {
-  console.log("delete-stock-record route");
-  console.log(req.params.pid);
-
-  Stock.removeRedisStock(req.params.pid, (err, removed) => {
-    return err ? res.json({ok: false}) : res.json({ok: true, payload: removed});
-  });
-});
 export default Router;
 

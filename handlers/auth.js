@@ -99,6 +99,7 @@ AUTH_HANDLERS = {
 
         user.loginMethod = "local";
         user.password = hashed;
+        user.level = req.body.level || "user";
 
         User.createUser(user, (err, created) => {
           if (err) {

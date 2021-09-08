@@ -10,6 +10,9 @@ parseJSON = (req, res, next) => {
   try {
     JSON.parse(req.body);
     req.body = JSON.parse(req.body);
+    Object.entries(req.body).forEach(([k, v]) => {
+      if (typeof k === "object") req.body[k] = JSON.parse(v);
+    });
     return next();
   } catch (err) {
     return next();

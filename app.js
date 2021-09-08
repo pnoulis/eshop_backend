@@ -7,19 +7,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import body_parser from "body-parser";
 import config from "./config/config.js";
-import express_session from "express-session";
 import cors from "cors";
 import routes from "#routes";
 import middleware, {handleError} from "#middleware";
 import startDatabases from "#misc/start.js";
 import passport from "#lib/auth/passport.js";
+import Session from "#session";
+
 
 const app = express();
 
 app.use(
   express.static(__dirname + "/public"),
   cors(config.cors),
-  express_session(config.session),
+  Session.express(),
   passport.initialize(),
   passport.session(),
   body_parser.json(),
