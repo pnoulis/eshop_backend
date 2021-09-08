@@ -2,6 +2,7 @@ import express from "express";
 import {Stock, ShoppingCart} from "#stock-management";
 import log from "#log";
 const Router = express.Router();
+import Session from "#session";
 
 
 import {validateInput} from "#middleware";
@@ -13,15 +14,28 @@ Router.get("/api", (req, res, next) => {
   res.json({ok: true, payload: {session: req.session, user: req.user}});
 });
 
-Router.post("/api/session/create", (req, res) => {
-  req.session.live = true;
-  req.session.timeOfCreation = new Date().toString();
-  res.json({ok: true, payload: req.session});
-});
+Router.post(
+  "/api/session/create",
+  (req, res, next) => {
+    res.locals.setSession = {state: {live: true, toc: new Date()}};
+    Session.set(req.session, {
+      live: true,
+      toc: new Date(),
+    });
+    res.json({ok: true, payload: {session: req.session, sid: req.sessionID}});
+  },
+);
 
+Router.get(
+  "/api/session/touch",
+  (req, res, next) => {
+    req.session.touch();
+    res.json({ok: true, payload: {session: req.session, sid: req.sessionID}});
+  }
+);
 Router.get("/api/session/show", (req, res) => {
-  console.log(req.sessionID);
-  res.json({ok :true, payload: {session: req.session, user: req.user}});
+  console.log(req.session);
+  res.json({ok :true, payload: {session: req.session, sid: req.sessionID, passport: req.user}});
 });
 
 Router.get("/api/regenerate", (req, res) => {
@@ -29,7 +43,7 @@ Router.get("/api/regenerate", (req, res) => {
     if (err) {
       res.send({ok: false, err});
     }
-    res.json({ok: true, session: "regenareted"});
+    res.json({ok: true, payload: {session: req.session, sid: req.sessionID, passport: req.user}});
   });
 });
 
