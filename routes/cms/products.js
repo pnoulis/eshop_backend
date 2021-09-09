@@ -5,26 +5,12 @@ import {handleImageUpload, deleteImages, PRODUCT_HANDLERS} from "#handlers";
 const
 IMG_FIELD = "img",
 upload = multer({storage: multer.memoryStorage()}),
-Router = express.Router(),
-parseJSON = (req, res, next) => {
-  try {
-    JSON.parse(req.body);
-    req.body = JSON.parse(req.body);
-    Object.entries(req.body).forEach(([k, v]) => {
-      if (typeof k === "object") req.body[k] = JSON.parse(v);
-    });
-    return next();
-  } catch (err) {
-    return next();
-  }
-};
-
+Router = express.Router();
 
 // create product
 Router.post(
   "/api/product",
   upload.single(IMG_FIELD),
-  parseJSON,
   handleImageUpload,
   PRODUCT_HANDLERS.create,
   PRODUCT_HANDLERS.read,
@@ -40,7 +26,6 @@ Router.get(
 Router.put(
   "/api/product",
   upload.single(IMG_FIELD),
-  parseJSON,
   handleImageUpload,
   deleteImages,
   PRODUCT_HANDLERS.update,
@@ -50,7 +35,6 @@ Router.put(
 // delete product
 Router.delete(
   "/api/product",
-  parseJSON,
   PRODUCT_HANDLERS.delete,
   deleteImages,
   PRODUCT_HANDLERS.read,

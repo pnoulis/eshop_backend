@@ -11,13 +11,7 @@ const productSchema = new mongoose.Schema({
   tp: Number, // total price of items
   mu: String, // measuring unit
   pu: String, // price unit
-  img: {
-    dirPath: String,
-    tiny: {path: String, width: String},
-    small: {path: String, width: String},
-    medium: {path: String, width: String},
-    large: {path: String, width: String},
-  },
+  img: String,
   tags: [String],
   stock: Number,
   vstock: Number,

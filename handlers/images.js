@@ -4,47 +4,6 @@ import config from "#config";
 import log from "#log";
 
 const
-format = "webp",
-// assumng that the express server has a default root directory
-// where resources are kept
-imgSchemas = [
-  { // tiny
-    size: "tiny",
-    ext: ".tiny.".concat("", format),
-    sharpOpts: {
-      width: 60,
-      height: 60,
-      options: {fit: "contain"},
-    },
-  },
-  { // small
-    size: "small",
-    ext: ".small.".concat("", format),
-    sharpOpts: {
-      width: 100,
-      height: 100,
-      options: {fit: "contain"},
-    },
-  },
-  { // medium
-    size: "medium",
-    ext: ".medium.".concat("", format),
-    sharpOpts: {
-      width: 150,
-      height: 150,
-      options: {fit: "contain"},
-    },
-  },
-  { // large
-    size: "large",
-    ext: ".large.".concat("", format),
-    sharpOpts: {
-      width: 300,
-      height: 300,
-      options: {fit: "contain"},
-    },
-  },
-],
 makeDirPath = (imgName) => {
   imgName = new MyPath(imgName)
     .extractName()
@@ -74,32 +33,33 @@ export function handleImageUpload(req, res, next) {
       }); else next(err);
     }
 
-    let imgPath = "", img = {};
-    const sharpImg = sharp(image.buffer).webp(),
-          promises = imgSchemas.map((schema, i) => {
-            imgPath = dirPath.concat(imgName, schema.ext);
-            img[schema.size] = {
-              path: config.serverDomain.concat(
-                imgPath.substring(imgPath.match(/\//).index)
-              ),
-              width: schema.sharpOpts.width + "px"
-            };
-            return sharpImg.clone().resize(schema.sharpOpts).toFile(imgPath);
-          });
+    let
+    imgPath = dirPath.concat(imgName, ".350px.webp");
 
-    Promise.all(promises)
+    const
+    sharpImg = sharp(image.buffer).webp()
+      .clone()
+      .resize({
+        width: 350,
+        height: 350,
+        options: {fit: "contain"},
+      })
+      .toFile(imgPath)
       .then(() => {
-        req.body.img = img;
+        imgPath = config.serverDomain.concat(
+          imgPath.substring(imgPath.match(/\//).index)
+        );
+        req.body.img = imgPath;
         return next();
-      }).catch(err => {
-        log.error({oper: "upload-image sharp promises", err});
+      })
+      .catch(err => {
+        log.error({what: "image upload failed", err});
         return next(err);
       });
   });
 }
 
 export function deleteImages(req, res, next) {
-  console.log(req.body);
   if (!req.body.oldImg) return next();
   const path = new MyPath(req.body.oldImg)
         .removeDomain()
