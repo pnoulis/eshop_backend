@@ -1,0 +1,8 @@
+* fetchWhere accepts projections
+* getByTag sends a projection to fetchWhere
+* TODO only have one image producted by image.js
+  that will require a lot of changes in the client and other parts of the
+  server
+
+* TODO there is a bug in the tags that saves same as stringified json
+  

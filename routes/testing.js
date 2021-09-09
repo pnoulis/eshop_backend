@@ -17,11 +17,8 @@ Router.get("/api", (req, res, next) => {
 Router.post(
   "/api/session/create",
   (req, res, next) => {
-    res.locals.setSession = {state: {live: true, toc: new Date()}};
-    Session.set(req.session, {
-      live: true,
-      toc: new Date(),
-    });
+    req.session.live = true;
+    req.session.toc = new Date();
     res.json({ok: true, payload: {session: req.session, sid: req.sessionID}});
   },
 );
@@ -37,6 +34,14 @@ Router.get("/api/session/show", (req, res) => {
   console.log(req.session);
   res.json({ok :true, payload: {session: req.session, sid: req.sessionID, passport: req.user}});
 });
+
+Router.get(
+  "/api/session/add",
+  (req, res, next) => {
+    req.session.pavlos = Math.random(100 * 100) + 1;
+    res.json({ok: true, payload: {session: req.session, sid: req.sessionID}});
+  }
+)
 
 Router.get("/api/regenerate", (req, res) => {
   req.session.regenerate(err => {
