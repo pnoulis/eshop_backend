@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
   password: String,
   loginMethod: String,
   authId: String,
+  addresses: [{
+    postcode: String,
+  }],
 }, {versionKey: false});
 
 

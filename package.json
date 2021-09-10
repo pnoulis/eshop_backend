@@ -18,7 +18,8 @@
     "#log": "./lib/log/index.js",
     "#lib/*": "./lib/*",
     "#misc/*": "./lib/misc/*",
-    "#models": "./models/index.js"
+    "#models": "./models/index.js",
+    "#user": "./lib/User/factory.js"
   },
   "type": "module",
   "keywords": [],
