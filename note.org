@@ -8,3 +8,7 @@
 * DONE there is a bug in the tags that saves same as stringified json
   CLOSED: [2021-09-09 Thu 10:21]
   
+* TODO set a max limit of leases available on a stock based on a % of its stock.vstock
+* TODO thought on how the return of stocks should be implemented
+  stocks can be returned. That is obviously an operation all by itself. The problem lies
+  with the fact that sometimes what is returned is leased stock and other items bought stock

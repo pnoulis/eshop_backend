@@ -1,5 +1,4 @@
 import express from "express";
-import {Stock, ShoppingCart} from "#stock-management";
 import log from "#log";
 const Router = express.Router();
 import Session from "#session";

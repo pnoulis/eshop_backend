@@ -1,4 +1,4 @@
-import {Stock, ShoppingCart, decodeCart, encodeCart, getStock, setStock} from "#stock-management";
+// import {Stock, ShoppingCart, decodeCart, encodeCart, getStock, setStock} from "#stock-management";
 import Session from "#session";
 import log from "#log";
 export const CART_HANDLERS = {
@@ -36,6 +36,7 @@ export const CART_HANDLERS = {
     getStock(req.body.pid, (err, stock) => {
       if (err) return next(err);
 
+      console.log(req);
       res.locals.stocks = [];
       for (let i = 0; i < req.body.amount; ++i) {
         if (stock.vstock.length >= stock.rstock) break;
