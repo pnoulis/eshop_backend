@@ -13,13 +13,12 @@
     "#input": "./lib/input/index.js",
     "#middleware": "./middleware/index.js",
     "#databases": "./lib/databases/index.js",
-    "#session": "./lib/session/index.js",
-    "#stock-management": "./lib/stock-management/index.js",
+    "#session": "./lib/session.js",
     "#log": "./lib/log/index.js",
     "#lib/*": "./lib/*",
     "#misc/*": "./lib/misc/*",
     "#models": "./models/index.js",
-    "#user": "./lib/User/factory.js"
+    "#user": "./lib/user/factory.js"
   },
   "type": "module",
   "keywords": [],

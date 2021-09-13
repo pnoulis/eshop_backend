@@ -1,6 +1,5 @@
 import log from "#log";
 import Session from "#session";
-import User from "#lib/user.js";
 import passport from "#lib/auth/passport.js";
 
 export

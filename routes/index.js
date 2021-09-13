@@ -1,12 +1,12 @@
 import express from "express";
-import clientRouter from "./client/index.js";
 import cmsRouter from "./cms/index.js";
 import testingRouter from "./testing.js";
 import authRouter from "./auth.js";
+import userRouter from "./user.js";
 const Router = express.Router();
 
 Router.use(
-  clientRouter,
+  userRouter,
   cmsRouter,
   authRouter,
   testingRouter
