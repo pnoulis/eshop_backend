@@ -1,6 +1,7 @@
 import express from "express";
 import multer from "multer";
-import {handleImageUpload, deleteImages, PRODUCT_HANDLERS} from "#handlers";
+import {Products} from "#products";
+import {handleImageUpload, deleteImages} from "#handlers";
 
 const
 IMG_FIELD = "img",
@@ -12,14 +13,13 @@ Router.post(
   "/api/product",
   upload.single(IMG_FIELD),
   handleImageUpload,
-  PRODUCT_HANDLERS.create,
-  PRODUCT_HANDLERS.read,
+  (req, res, next) => Products.add(req, res, next),
 );
 
 // read product
 Router.get(
   "/api/products",
-  PRODUCT_HANDLERS.read
+  (req, res, next) => Products.get(req, res, next),
 );
 
 // update product
@@ -28,16 +28,14 @@ Router.put(
   upload.single(IMG_FIELD),
   handleImageUpload,
   deleteImages,
-  PRODUCT_HANDLERS.update,
-  PRODUCT_HANDLERS.read,
+  (req, res, next) => Products.change(req, res, next),
 );
 
 // delete product
 Router.delete(
   "/api/product",
-  PRODUCT_HANDLERS.delete,
   deleteImages,
-  PRODUCT_HANDLERS.read,
+  (req, res, next) => Products.delete(req, res, next),
 );
 
 export default Router;
