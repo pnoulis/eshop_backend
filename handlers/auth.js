@@ -18,7 +18,6 @@ AUTH_HANDLERS = {
 
       res.locals.user = user;
       return next();
-      next();
     })(req, res, next);
   },
   facebook(req, res, next) {
