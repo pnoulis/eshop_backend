@@ -12,3 +12,9 @@
 * TODO thought on how the return of stocks should be implemented
   stocks can be returned. That is obviously an operation all by itself. The problem lies
   with the fact that sometimes what is returned is leased stock and other items bought stock
+
+* products v2
+** DONE limit the number of products returned by the route /api/products/:tags to 50
+   CLOSED: [2021-10-04 Mon 12:26]
+** DONE the route /api/products/tags should also return the total number of products
+   CLOSED: [2021-10-04 Mon 12:26]
