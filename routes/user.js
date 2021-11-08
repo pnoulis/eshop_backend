@@ -26,6 +26,11 @@ Router.post( // login
   "/api/login",
   (req, res, next) => res.locals.user.login(req, res, next)
 );
+
+Router.delete( // logout
+  "/api/logout",
+  (req, res, next ) => res.locals.user.logout(req, res, next)
+);
 Router.post( // register
   "/api/register",
   (req, res, next) => res.locals.user.register(req, res, next)
